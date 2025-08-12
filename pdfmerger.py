@@ -10,7 +10,7 @@ class ModernImageToPDFConverter:
         master.geometry("600x650")
         master.resizable(False, False)
 
-        # --- Renk ve Stil Ayarları ---
+        
         self.BG_COLOR = "#f0f0f0"
         self.FRAME_COLOR = "#ffffff"
         self.ACCENT_COLOR = "#0078D7"
@@ -20,38 +20,38 @@ class ModernImageToPDFConverter:
 
         master.configure(bg=self.BG_COLOR)
 
-        # --- TTK Stil Tanımlamaları (HATANIN ÇÖZÜMÜ BURADA) ---
+        
         self.style = ttk.Style(master)
         self.style.theme_use('clam')
 
-        # Frame stili (kart görünümü için)
+        
         self.style.configure('Card.TFrame', background=self.FRAME_COLOR)
         
-        # Etiket stilleri
+        
         self.style.configure('Card.TLabel', background=self.FRAME_COLOR, foreground=self.TEXT_COLOR)
         self.style.configure('Header.TLabel', background=self.BG_COLOR, foreground=self.TEXT_COLOR, font=("Helvetica", 20, "bold"))
         self.style.configure('Status.TLabel', background=self.BG_COLOR, foreground="gray", font=("Helvetica", 10, "italic"))
         
-        # Buton stilleri
-        self.style.configure('TButton', font=("Helvetica", 10)) # Varsayılan buton stili
+        
+        self.style.configure('TButton', font=("Helvetica", 10)) 
         self.style.configure('Accent.TButton', background=self.ACCENT_COLOR, foreground='white', font=('Helvetica', 12, 'bold'), borderwidth=0, padding=10)
         self.style.map('Accent.TButton',
             background=[('active', '#005a9e')]
         )
 
-        # Değişkenler
+        
         self.image_paths = []
         self.save_dir = ""
 
-        # Arayüzü oluştur
+        
         self.create_widgets()
 
     def create_widgets(self):
-        # --- Ana Başlık ---
+        
         title_label = ttk.Label(self.master, text="Resimleri PDF'e Dönüştür", style='Header.TLabel')
         title_label.pack(pady=(20, 10))
 
-        # --- 1. Adım: Resim Seçme Çerçevesi ---
+        
         input_frame = ttk.Frame(self.master, padding=20, style='Card.TFrame')
         input_frame.pack(padx=20, pady=10, fill=tk.X)
         
@@ -61,8 +61,7 @@ class ModernImageToPDFConverter:
         select_button = ttk.Button(input_frame, text="Resim Dosyalarını Seç...", command=self.select_images, style='Accent.TButton')
         select_button.pack(fill=tk.X, pady=(10, 5))
         
-        # Listbox için bir çerçeve (ttk.Frame doğrudan renk almaz, ama standart tk.Frame alır)
-        # Listbox'ın kendisi de ttk olmadığı için bu yöntem daha güvenli.
+        
         list_container = tk.Frame(input_frame, bg=self.FRAME_COLOR)
         list_container.pack(fill=tk.BOTH, expand=True, pady=5)
 
@@ -76,7 +75,7 @@ class ModernImageToPDFConverter:
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.listbox.config(yscrollcommand=scrollbar.set)
 
-        # --- 2. Adım: Çıktı Ayarları Çerçevesi ---
+        
         output_frame = ttk.Frame(self.master, padding=20, style='Card.TFrame')
         output_frame.pack(padx=20, pady=10, fill=tk.X)
         
@@ -94,16 +93,15 @@ class ModernImageToPDFConverter:
         self.pdf_name_entry = ttk.Entry(output_frame, font=("Helvetica", 10))
         self.pdf_name_entry.pack(fill=tk.X, pady=(5, 0))
 
-        # --- 3. Adım: Dönüştürme Butonu ---
+        
         self.save_button = ttk.Button(self.master, text="PDF OLUŞTUR", command=self.convert_and_save, style='Accent.TButton')
         self.save_button.pack(padx=20, pady=20, fill=tk.X)
         
-        # --- Durum Bildirim Alanı ---
+        
         self.status_label = ttk.Label(self.master, text="Başlamak için resimleri seçin.", style='Status.TLabel')
         self.status_label.pack(pady=(0, 10))
 
-    # Geri kalan fonksiyonlar (select_images, select_save_dir, convert_and_save) aynı kalabilir.
-    # Önceki koddan kopyalayıp buraya yapıştırabilirsiniz.
+    
     def select_images(self):
         file_paths = filedialog.askopenfilenames(title="Birleştirilecek resimleri seçin")
         
